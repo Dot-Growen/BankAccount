@@ -8,6 +8,7 @@ a.navbar-brand {
 }
 
 /* Provide sufficient contrast against white background */
+
 a {
   color: #0366d6;
 }
@@ -18,7 +19,7 @@ a {
   border-color: #1861ac;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
@@ -26,9 +27,11 @@ a {
 
 /* Sticky footer styles
 -------------------------------------------------- */
+
 html {
   font-size: 14px;
 }
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -38,6 +41,7 @@ html {
 .border-top {
   border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
   border-bottom: 1px solid #e5e5e5;
 }
@@ -53,6 +57,7 @@ button.accept-policy {
 
 /* Sticky footer styles
 -------------------------------------------------- */
+
 html {
   position: relative;
   min-height: 100%;
@@ -62,10 +67,78 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
+
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+  line-height: 60px;
+  /* Vertically center the text there */
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+
+form {
+  padding: 1em;
+  margin-top: 2em;
+}
+
+h3 {
+  text-align: center;
+}
+
+
+.title1 {
+  padding-left: 0em;
+}
+
+a {
+  margin-top: .5em;
+}
+
+.login-area {
+  margin-top: 5em;
+  width: 50em;
+}
+
+.register-area {
+  margin-top: 5em;
+  width: 55em;
+}
+
+.header1 {
+  display: flex;
+  align-items: center;
+  margin: 4em auto;
+}
+
+.head1 {
+  position: absolute;
+  left: 4.2em;
+  font-weight: 200;
+}
+
+.head2 {
+  position: absolute;
+  right: 14.5em;
+  font-weight: 200;
+}
+
+.head3 {
+  position: absolute;
+  right: 8em;
+  font-weight: 500;
+  border: 1px solid black;
+  border-radius: .2em;
+  padding: .5em;
+
+}
+
+.input1 {
+  width: 3em;
+}
+.btn1 {
+  margin-left: .5em;
 }

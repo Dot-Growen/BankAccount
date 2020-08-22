@@ -10,7 +10,7 @@ namespace BankAccount.Validations {
                 if (DateTime.Now.AddYears (-18) > check) {
                     return ValidationResult.Success;
                 } else {
-                    return new ValidationResult ("Not old enough to be stacking paper");
+                    return new ValidationResult ("Not old enough to be stacking dat paper");
                 }
             } else {
                 return new ValidationResult ("Please enter a Valid Date.");

@@ -1,0 +1,33 @@
+@model User
+
+<div class="header1">
+    <h2 class="head1">Welcome @Model.!</h2>
+    <h5 class="head2">Current balance:</h5>
+    <h6 class="head3">$(current balance)</h6>
+</div>
+
+<div class="card col-10 mx-auto">
+    
+        <form class=" row align-items-center" action="transaction" method="post">
+            <h5 class="title1 col">Deposit/Withdraw:</h5>
+            <input class=" input1 col-2 form-control" name="Amount" type="number">
+            <input type="hidden" name="UserId">
+            <button class=" col-2 btn1 btn btn-outline-dark" type="sumbit">Sumbit</button>
+        </form>
+        
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Amount</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>(Amount)</td>
+                <td>(Dates)</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

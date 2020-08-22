@@ -1,8 +1,54 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model User
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="register-area mx-auto">
+
+    <h3>Register your new account!</h3>
+
+    <form class="card col-7 mx-auto" action="/register" method="post">
+        <div class="form-group row">
+            <label asp-for="FirstName" class="col-sm-3 col-form-label">First Name</label>
+            <div class="col-sm-9">
+                <input class="form-control" id="FirstName" asp-for="FirstName">
+                <span class="text-danger" asp-validation-for="FirstName"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="LastName" class="col-sm-3 col-form-label">Last Name</label>
+            <div class="col-sm-9">
+                <input class="form-control" id="LastName" asp-for="LastName">
+                <span class="text-danger" asp-validation-for="LastName"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Email" class="col-sm-3 col-form-label">Email</label>
+            <div class="col-sm-9">
+                <input class="form-control" id="Email" asp-for="Email">
+                <span class="text-danger" asp-validation-for="Email"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Birthday" class="col-sm-3 col-form-label">Date of Birth</label>
+            <div class="col-sm-9">
+                <input type="date" class="form-control" id="Birthday" asp-for="Birthday">
+                <span class="text-danger" asp-validation-for="Birthday"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Password" class="col-sm-3 col-form-label">Password</label>
+            <div class="col-sm-9">
+                <input class="form-control" id="Password" asp-for="Password">
+                <span class="text-danger" asp-validation-for="Password"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Confirm" class="col-sm-3 col-form-label">Confirm PW</label>
+            <div class="col-sm-9">
+                <input class="form-control" id="Confirm" asp-for="Confirm">
+                <span class="text-danger" asp-validation-for="Confirm"></span>
+            </div>
+        </div>
+        <button class="btn btn-outline-primary btn-block" type="submit">Register</button>
+        <a class="btn btn-outline-dark" href="/loginpage">Login</a>
+    </form>
+    
 </div>
