@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using BankAccount.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity; // For Password Hashing
+using Microsoft.EntityFrameworkCore; // For Password Hashing
 using Microsoft.AspNetCore.Http; // For Session
 
 namespace BankAccount.Controllers {
@@ -32,14 +32,13 @@ namespace BankAccount.Controllers {
                 return RedirectToAction ("loginpage");
             } else {
                 User user = _context.Users
-                        .Include(u => u.OwnerTransactions)
-                        .FirstOrDefault (u => u.UserId == Id);
-                
-                ViewBag.UserTransactions = _context.Transactions
-                        .Include(t => t.Owner)
-                        .Where(t => t.Owner.UserId == Id)
-                        .ToList();
-                        
+                    .Include (u => u.OwnerTransactions)
+                    .FirstOrDefault (u => u.UserId == Id);
+
+                ViewBag.UT = _context.Transactions
+                    .Where (t => t.Owner.UserId == Id)
+                    .ToList ();
+
                 int? num = HttpContext.Session.GetInt32 ("UserId");
                 Console.WriteLine ($"I AM logged in. My Id => {num}");
                 return View (user);
@@ -91,11 +90,24 @@ namespace BankAccount.Controllers {
             }
         }
 
-        [HttpPost("transaction/{UserId}")]
-        public IActionResult Transaction (int UserId)
-        {
+        [HttpPost ("transaction")]
+        public IActionResult Transaction (Transaction transaction) {
+            int? TransId = HttpContext.Session.GetInt32 ("UserId");
+            User CurrentUser = _context.Users
+                .FirstOrDefault (u => u.UserId == TransId);
+
             
-            return RedirectToAction("account/{UserId}");
+                if ((CurrentUser.Balance + transaction.Amount) < 0) {
+                    return RedirectToAction ("account", new { Id = TransId });
+                } else {
+                    _context.Transactions.Add (transaction);
+                    _context.SaveChanges ();
+                    CurrentUser.Balance += transaction.Amount;
+                    _context.SaveChanges ();
+                    Console.WriteLine ($"Transaction: ${transaction.Amount}");
+                }
+            
+            return RedirectToAction ("account", new { Id = TransId });
         }
 
     }
