@@ -32,6 +32,7 @@ namespace BankAccount.Models {
         [Required (ErrorMessage = "Enter a password")]
         [MinLength (8, ErrorMessage = "Password must be 8 characters or longer!")]
         public string Password { get; set; }
+        
         public decimal Balance { get; set; } = 0;
 
         [NotMapped]

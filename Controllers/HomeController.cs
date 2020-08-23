@@ -16,6 +16,8 @@ namespace BankAccount.Controllers {
             _context = context;
         }
 
+        //*********************** GET REQUEST ****************************//
+
         [HttpGet ("")]
         public IActionResult Index () {
             return View ();
@@ -34,16 +36,24 @@ namespace BankAccount.Controllers {
                 User user = _context.Users
                     .Include (u => u.OwnerTransactions)
                     .FirstOrDefault (u => u.UserId == Id);
-
                 ViewBag.UT = _context.Transactions
                     .Where (t => t.Owner.UserId == Id)
                     .ToList ();
-
                 int? num = HttpContext.Session.GetInt32 ("UserId");
                 Console.WriteLine ($"I AM logged in. My Id => {num}");
                 return View (user);
             }
         }
+
+        [HttpGet ("logout")]
+        public IActionResult Logout () {
+            Console.WriteLine ($"I WAS login. My Id => {HttpContext.Session.GetInt32 ("UserId")}");
+            HttpContext.Session.SetInt32 ("UserId", 0);
+            Console.WriteLine ($"NOW IM out. Id => {HttpContext.Session.GetInt32 ("UserId")}");
+            return View ("Index");
+        }
+
+        //*********************** POST REQUEST ****************************//
 
         [HttpPost ("login")]
         public IActionResult Login (LoginUser log) {
@@ -68,14 +78,6 @@ namespace BankAccount.Controllers {
                 Console.WriteLine (log.LoginEmail);
                 return View ("loginpage");
             }
-        }
-
-        [HttpGet ("logout")]
-        public IActionResult Logout () {
-            Console.WriteLine ($"I WAS login. My Id => {HttpContext.Session.GetInt32 ("UserId")}");
-            HttpContext.Session.SetInt32 ("UserId", 0);
-            Console.WriteLine ($"NOW IM out. Id => {HttpContext.Session.GetInt32 ("UserId")}");
-            return View ("Index");
         }
 
         [HttpPost ("register")]
@@ -103,20 +105,16 @@ namespace BankAccount.Controllers {
             int? TransId = HttpContext.Session.GetInt32 ("UserId");
             User CurrentUser = _context.Users
                 .FirstOrDefault (u => u.UserId == TransId);
-
-            
-                if ((CurrentUser.Balance + transaction.Amount) < 0) {
-                    return RedirectToAction ("account", new { Id = TransId });
-                } else {
-                    _context.Transactions.Add (transaction);
-                    _context.SaveChanges ();
-                    CurrentUser.Balance += transaction.Amount;
-                    _context.SaveChanges ();
-                    Console.WriteLine ($"Transaction: ${transaction.Amount}");
-                }
-            
+            if ((CurrentUser.Balance + transaction.Amount) < 0) {
+                return RedirectToAction ("account", new { Id = TransId });
+            } else {
+                _context.Transactions.Add (transaction);
+                _context.SaveChanges ();
+                CurrentUser.Balance += transaction.Amount;
+                _context.SaveChanges ();
+                Console.WriteLine ($"Transaction: ${transaction.Amount}");
+            }
             return RedirectToAction ("account", new { Id = TransId });
         }
-
     }
 }
