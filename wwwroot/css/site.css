@@ -133,6 +133,8 @@ a {
   margin-left: .8em;
 }
 
+
+
 .trans-area {
   max-height: 30em;
   overflow: hidden scroll;
@@ -147,7 +149,7 @@ a {
 }
 
 .btn1 {
-  margin-left: .5em;
+  margin: 0em .5em;
 }
 
 .table1 {

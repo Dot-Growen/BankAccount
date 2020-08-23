@@ -28,7 +28,7 @@ namespace BankAccount.Controllers {
 
         [HttpGet ("account/{Id}")]
         public IActionResult Account (int Id) {
-            if (HttpContext.Session.GetInt32 ("UserId") == null) {
+            if (HttpContext.Session.GetInt32 ("UserId") != Id) {
                 return RedirectToAction ("loginpage");
             } else {
                 User user = _context.Users
@@ -68,6 +68,14 @@ namespace BankAccount.Controllers {
                 Console.WriteLine (log.LoginEmail);
                 return View ("loginpage");
             }
+        }
+
+        [HttpGet ("logout")]
+        public IActionResult Logout () {
+            Console.WriteLine ($"I WAS login. My Id => {HttpContext.Session.GetInt32 ("UserId")}");
+            HttpContext.Session.SetInt32 ("UserId", 0);
+            Console.WriteLine ($"NOW IM out. Id => {HttpContext.Session.GetInt32 ("UserId")}");
+            return View ("Index");
         }
 
         [HttpPost ("register")]
