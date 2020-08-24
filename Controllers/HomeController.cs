@@ -48,7 +48,7 @@ namespace BankAccount.Controllers {
         [HttpGet ("logout")]
         public IActionResult Logout () {
             Console.WriteLine ($"I WAS login. My Id => {HttpContext.Session.GetInt32 ("UserId")}");
-            HttpContext.Session.SetInt32 ("UserId", 0);
+            HttpContext.Session.Clear();
             Console.WriteLine ($"NOW IM out. Id => {HttpContext.Session.GetInt32 ("UserId")}");
             return View ("Index");
         }
